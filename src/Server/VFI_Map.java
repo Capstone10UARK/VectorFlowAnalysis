@@ -152,7 +152,7 @@ class VFI_Map
    public static void Init() throws IOException
    {
       //Preloaded key for color mapping
-      File file = new File("../images/colorKey.png");
+      File file = new File("../../images/colorKey.png");
       image = ImageIO.read(file);
       mHeight = image.getHeight();
       mWidth = image.getWidth();

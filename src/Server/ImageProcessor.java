@@ -11,7 +11,7 @@ class ImageProcessor extends Thread {
     //when executing on linux this path must use / instead of \ otherwise this causes a NullPointerException
     public ProgressWrapper progress;
     
-    private static final String IMAGE_DIRECTORY_PATH = "/images/testerImages";
+    private static final String IMAGE_DIRECTORY_PATH = "../../tests/images/testerImagesFirstThree";
     private String outputPath;
 
     public ImageProcessor(String outputPathPassed, ProgressWrapper progressPassed) throws IOException {
