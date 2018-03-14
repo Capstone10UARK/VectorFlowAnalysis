@@ -94,7 +94,6 @@ class CommandServer implements AutoCloseable{
         catch(IOException e){
             System.err.println("ERROR READING COMMAND FROM PORT");
             System.err.println(e.getMessage());
-	    e.printStackTrace();
         }
         catch(JSONException e){
             System.err.println("ERROR WHEN CREATING JSONOBJECT");
