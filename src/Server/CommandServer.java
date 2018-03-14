@@ -83,7 +83,7 @@ class CommandServer implements AutoCloseable{
                                 
                             case "end":
                                 run = false;
-                                response.put("reponse", "commandExecuted");
+                                response.put("response", "commandExecuted");
                                 break;
                         }
                         out.write(response.toString().getBytes());

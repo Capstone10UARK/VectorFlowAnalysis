@@ -5,6 +5,7 @@ from PyQt4 import QtCore
 from my_ui import Ui_MainWindow
 from clientSocket import ClientSocket
 
+import cv2
 import imageio
 imageio.plugins.ffmpeg.download()
 from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
@@ -44,8 +45,6 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
         self.stopButton.clicked.connect(self.stop)
         self.analyzeButton.clicked.connect(self.analyze)
 
-        # Selection rubber band
-
     def stateChanged(self, newstate, oldstate):
         if self.mediaObject.state() == Phonon.ErrorState:
             self.play_pauseButton.setEnabled(False)
@@ -60,7 +59,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
             self.play_pauseButton.setToolTip('Play')
 
     def loadVideo(self):
-        file = QFileDialog.getOpenFileName(self, None, '')
+        file = QFileDialog.getOpenFileName(self, "Select Video to Load")
 
         if file != '':
             self.mediaObject.setCurrentSource(Phonon.MediaSource(file))
@@ -71,7 +70,6 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
             self.fileName = file
 
     def analyzeArea(self):
-        # TODO
         if self.rangeSlider.isVisible():
             self.mediaObject.seek(0)
             self.rangeSlider.hide()
@@ -109,14 +107,29 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
         self.mediaObject.seek(value)
 
     def analyze(self):
-        self.clientSocket.sendPath('C:/Users/snyde/Desktop/TEST/')
+        directory = QFileDialog.getExistingDirectory(self, "Select Folder for Vector Output")
         self.extractClip()
+        self.clientSocket.sendPath(directory)
 
     def extractClip(self):
         beginning = float(self.rangeSlider.low()) / float(1000)
         end = float(self.rangeSlider.high()) / float(1000)
         target = self.fileName[:-4] + "[SUBCLIP].avi"
         ffmpeg_extract_subclip(self.fileName, beginning, end, targetname=target)
+        self.extractFrames(target)
+
+    def extractFrames(self, videoFile):
+        cap = cv2.VideoCapture(videoFile)
+        count = 0
+
+        while count < cap.get(cv2.CAP_PROP_FRAME_COUNT):
+            ret, frame = cap.read()
+            frame = frame[0:0 + 725, 188:188 + 465]
+            cv2.imwrite("../../tests/images/clientTest/frame%d.png" % count, frame)
+            count = count + 1
+
+        cap.release()
+        cv2.destroyAllWindows()
 
     def mousePressEvent(self, event):
         if event.button() == Qt.LeftButton:

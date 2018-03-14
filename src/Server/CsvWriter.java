@@ -16,7 +16,7 @@ class CsvWriter {
 	public void writeOneFile(ArrayList<Map> listOfVectors, int frameNumber) {
 		// create new directory for each second in the video
 		int secondIndex = frameNumber / 24;
-		String secondsFileString = outString + Integer.toString(secondIndex) + "/";
+		String secondsFileString = outString + "/" + Integer.toString(secondIndex) + "/";
 		File secondsFileDirectory = createNewDirectoryIfNotExist(secondsFileString);
 
 		// create a new csc file for each frame
