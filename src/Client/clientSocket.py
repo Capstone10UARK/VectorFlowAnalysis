@@ -11,12 +11,13 @@ class ClientSocket(object):
         self.socket.connect((self._address, self._port))
 	
     def sendPath(self, path):
-        if (self.socket):
+        if self.socket:
             data = {'command':'go','filePath':path}
             self._send(data)
 
     def close(self):
-        if (self.socket):
+        if self.socket:
+            self._send({'command':'end'})
             self.socket.close()
             self.socket = None
 
@@ -24,7 +25,6 @@ class ClientSocket(object):
         serialized = json.dumps(data).encode()
         self.socket.send(serialized)
         response = self._recv()
-        print(response)
 
     def _recv(self):
         data = self.socket.recv(1024).decode()
