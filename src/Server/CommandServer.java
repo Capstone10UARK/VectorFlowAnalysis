@@ -42,9 +42,9 @@ class CommandServer implements AutoCloseable{
             ProgressWrapper progress = null;
             while(run){
                 //String input = in.readLine();
-     		byte[] message = new byte[1024];
-		in.read(message);
-		String input = new String(message);
+				byte[] message = new byte[1024];
+				in.read(message);
+				String input = new String(message);
                 if(input != null){
                     JSONObject obj = new JSONObject(input);
                     if(obj.has("command")){
