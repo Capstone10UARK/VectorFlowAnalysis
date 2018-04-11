@@ -113,6 +113,8 @@ class Ui_MainWindow(object):
         self.menuField.addAction(self.actionExit)
         self.menubar.addAction(self.menuField.menuAction())
         self.menubar.addAction(self.menuView.menuAction())
+        
+        self.setWindowIcon(QtGui.QIcon('../../images/heart.ico'))
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -128,4 +130,4 @@ class Ui_MainWindow(object):
         self.actionLoad.setText(_translate("MainWindow", "Load Video", None))
         self.actionExit.setText(_translate("MainWindow", "Exit", None))
         self.actionMy_playlist.setText(_translate("MainWindow", "My_playlist", None))
-        self.actionAnalyze_Area.setText(_translate("MainWindow", "Analyze Area", None))
+        self.actionAnalyze_Area.setText(_translate("MainWindow", "Analyze...", None))

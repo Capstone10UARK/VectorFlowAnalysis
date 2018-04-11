@@ -4,6 +4,7 @@ from PyQt4.phonon import Phonon
 from PyQt4 import QtCore
 from my_ui import Ui_MainWindow
 from clientSocket import ClientSocket
+from ProgressBar import ProgressBar
 
 import cv2
 import imageio
@@ -19,6 +20,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
         self.origin = QPoint()
         self.clientSocket = ClientSocket()
         self.clientSocket.connect()
+        self.progress = None
 
         # Setup UI.
         self.setupUi(self)
@@ -80,7 +82,6 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
         else:
             self.rangeSliderSetup()
             self.analyzeButton.show()
-        print('')
 
     def rangeSliderSetup(self):
         self.rangeSlider.setMinimum(0)
@@ -110,6 +111,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
         directory = QFileDialog.getExistingDirectory(self, "Select Folder for Vector Output")
         self.extractClip()
         self.clientSocket.sendPath(directory)
+        self.progress = ProgressBar(self.clientSocket)
 
     def extractClip(self):
         beginning = float(self.rangeSlider.low()) / float(1000)
