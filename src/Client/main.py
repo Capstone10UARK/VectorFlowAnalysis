@@ -4,6 +4,7 @@ from PyQt4.phonon import Phonon
 from PyQt4 import QtCore
 from my_ui import Ui_MainWindow
 from clientSocket import ClientSocket
+from ProgressBar import ProgressBar
 
 import cv2
 import imageio
@@ -18,7 +19,8 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
         # Connect to server.
         self.clientSocket = ClientSocket()
         self.clientSocket.connect()
-		
+        self.progress = None
+
         # Setup UI.
         self.setupUi(self)
         self.play_pauseButton.setIcon(self.style().standardIcon(QStyle.SP_MediaPlay))
@@ -153,7 +155,8 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
     def analyze(self):
         '''directory = QFileDialog.getExistingDirectory(self, "Select Folder for Vector Output")
         self.extractClip()
-        self.clientSocket.sendPath(directory)'''
+        self.clientSocket.sendPath(directory)
+        self.progress = ProgressBar(self.clientSocket)'''
         self.extractFrames('C:/Users/snyde/Downloads/VFI_NoArrows[SUBCLIP].avi')
 
     # Obtain user-specified clip of video.
