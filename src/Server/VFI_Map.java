@@ -27,6 +27,7 @@ class VFI_Map
    ****************************************************************************************/
    public static void findVelDis()
    {
+	   int minDiff = 100000;
       for(int i = 0; i < mHeight; i++)
       {
          for(int j = 0; j < mWidth; j++){
@@ -37,6 +38,7 @@ class VFI_Map
             double v = (d*Vmax)/Dmax;
             double Vx = (-1)*Dx*(Vmax/Dmax);
             double Vy = Dy*(Vmax/Dmax);
+			
             if(RGB_VelMap.containsKey(image.getRGB(j,i))){
               //System.out.println("Duplicate of " + image.getRGB(j,i) + "with velocity: " + v);
             }
@@ -48,7 +50,6 @@ class VFI_Map
                 RGB_DisMap.put(image.getRGB(j,i), dis);
                 RGB_VxMap.put(image.getRGB(j,i), Vx);
                 RGB_VyMap.put(image.getRGB(j,i), Vy);
-
             }
           }
       }

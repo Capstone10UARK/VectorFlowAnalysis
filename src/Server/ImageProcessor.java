@@ -80,8 +80,12 @@ class ImageProcessor extends Thread {
 				float[] hsv = new float[3];
 
 				Color.RGBtoHSB(c.getRed(), c.getGreen(), c.getBlue(), hsv);
+				int difference = Math.abs(c.getRed() - c.getGreen());
+				if (Math.abs(c.getRed() - c.getBlue()) > difference) difference = Math.abs(c.getRed() - c.getBlue());
+				if (Math.abs(c.getGreen() - c.getBlue()) > difference) difference = Math.abs(c.getGreen() - c.getBlue());
 				//If the color is not gray scale (aka "is color")
-				if((hsv[1] > 0.2)&&(hsv[2] > 0.2))
+				//if((hsv[1] > 0.2)&&(hsv[2] > 0.2))
+				if (difference >= 60)
 				{
 					HashMap vector = new HashMap();
 					vector.put("x", x);

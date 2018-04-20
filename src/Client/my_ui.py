@@ -106,6 +106,7 @@ class Ui_MainWindow(object):
         self.actionMy_playlist.setObjectName(_fromUtf8("actionMy_playlist"))
         self.actionAnalyze_Area = QtGui.QAction(MainWindow)
         self.actionAnalyze_Area.setObjectName(_fromUtf8("actionAnalyze_Area"))
+        self.actionAnalyze_Area.setEnabled(False)
         self.menuField.addAction(self.actionLoad)
         self.menuField.addSeparator()
         self.menuField.addAction(self.actionAnalyze_Area)
@@ -113,6 +114,8 @@ class Ui_MainWindow(object):
         self.menuField.addAction(self.actionExit)
         self.menubar.addAction(self.menuField.menuAction())
         self.menubar.addAction(self.menuView.menuAction())
+        
+        self.setWindowIcon(QtGui.QIcon('../../images/heart.ico'))
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
@@ -124,8 +127,7 @@ class Ui_MainWindow(object):
         self.seekSlider.setToolTip(_translate("MainWindow", "Seek", None))
         self.rangeSlider.setToolTip(_translate("MainWindow", "Range", None))
         self.menuField.setTitle(_translate("MainWindow", "Action", None))
-        self.menuView.setTitle(_translate("MainWindow", "Help", None))
         self.actionLoad.setText(_translate("MainWindow", "Load Video", None))
         self.actionExit.setText(_translate("MainWindow", "Exit", None))
         self.actionMy_playlist.setText(_translate("MainWindow", "My_playlist", None))
-        self.actionAnalyze_Area.setText(_translate("MainWindow", "Analyze Area", None))
+        self.actionAnalyze_Area.setText(_translate("MainWindow", "Analyze...", None))
