@@ -6,6 +6,7 @@ from my_ui import Ui_MainWindow
 from clientSocket import ClientSocket
 from ProgressBar import ProgressBar
 
+import os, shutil
 import cv2
 import imageio
 imageio.plugins.ffmpeg.download()
@@ -70,7 +71,6 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
 
     # Load user-specified video.
     def loadVideo(self):
-        self.rubberBand.hide()
         file = QFileDialog.getOpenFileName(self, "Select Video to Load")
 
         if file != '':
@@ -153,30 +153,37 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
 
     # Contact server for video analysis.
     def analyze(self):
-        '''directory = QFileDialog.getExistingDirectory(self, "Select Folder for Vector Output")
-        self.extractClip()
-        self.clientSocket.sendPath(directory)
-        self.progress = ProgressBar(self.clientSocket)'''
-        self.extractFrames('C:/Users/snyde/Downloads/VFI_NoArrows[SUBCLIP].avi')
+        self.rubberBand.hide()
+        directory = QFileDialog.getExistingDirectory(self, "Select Folder for Vector Output")
+        
+        if directory != '':
+            self.extractClip(directory)
+            self.clientSocket.sendPath(directory)
+            self.progress = ProgressBar(self.clientSocket)
+            
+        self.rubberBand.resize(0, 0)
+        self.rubberBand.show()
 
     # Obtain user-specified clip of video.
-    def extractClip(self):
+    def extractClip(self, directory):
         beginning = float(self.rangeSlider.low()) / float(1000)
         end = float(self.rangeSlider.high()) / float(1000)
         target = self.fileName[:-4] + "[SUBCLIP].avi"
         ffmpeg_extract_subclip(self.fileName, beginning, end, targetname=target)
-        self.extractFrames(target)
+        self.extractFrames(target, directory)
 
-    def extractFrames(self, videoFile):
+    def extractFrames(self, videoFile, directory):
+        newDirectory = directory + "\Frames"
+        os.makedirs(newDirectory, exist_ok=True)
         cap = cv2.VideoCapture(videoFile)
         count = 0
         
         while count < cap.get(cv2.CAP_PROP_FRAME_COUNT):
             ret, frame = cap.read()
-            if (self.rubberBand.isVisible() and self.rubberBand.size().width() != 0):
+            if (self.rubberBand.size().width() != 0):
                 x, y, width, height = self.getCropPositions(frame)
                 frame = frame[int(y):int(y) + int(height), int(x):int(x) + int(width)]
-            cv2.imwrite("C:/Users/snyde/Documents/cropTesting/frame%d.png" % count, frame)
+            cv2.imwrite(newDirectory + "/frame%d.png" % count, frame)
             count = count + 1
             
         cap.release()

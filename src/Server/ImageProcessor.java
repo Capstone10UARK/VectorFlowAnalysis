@@ -11,11 +11,12 @@ class ImageProcessor extends Thread {
     //when executing on linux this path must use / instead of \ otherwise this causes a NullPointerException
     public ProgressWrapper progress;
     
-    private static final String IMAGE_DIRECTORY_PATH = "../../tests/images/clientTest";
+    private String IMAGE_DIRECTORY_PATH;
     private String outputPath;
 
     public ImageProcessor(String outputPathPassed, ProgressWrapper progressPassed) throws IOException {
         VFI_Map.Init();
+        IMAGE_DIRECTORY_PATH = outputPathPassed + "/Frames";
 		outputPath = outputPathPassed;
         progress = progressPassed;
     }
@@ -54,7 +55,7 @@ class ImageProcessor extends Thread {
 		String directory = System.getProperty("user.dir");
 		File parentDirectory = new File(directory).getParentFile();
 		
-		File directoryOfImages = new File(parentDirectory.getAbsolutePath() + IMAGE_DIRECTORY_PATH);
+		File directoryOfImages = new File(IMAGE_DIRECTORY_PATH);//new File(parentDirectory.getAbsolutePath() + IMAGE_DIRECTORY_PATH);
 		File[] listOfImages = directoryOfImages.listFiles();
 		return listOfImages;
 	}

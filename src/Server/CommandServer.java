@@ -73,7 +73,7 @@ class CommandServer implements AutoCloseable{
                                 float completed = 0;
                                 if (progress != null) {
                                     completed = progress.getProgress();
-                                    System.out.println("checked progress");
+                                    //System.out.println("checked progress");
                                 }
                                 
                                 response.put("response", "progressReport");                            
