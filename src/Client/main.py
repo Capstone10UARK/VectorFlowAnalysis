@@ -6,7 +6,7 @@ from my_ui import Ui_MainWindow
 from clientSocket import ClientSocket
 from ProgressBar import ProgressBar
 
-import os, shutil
+import os
 import cv2
 import imageio
 imageio.plugins.ffmpeg.download()
