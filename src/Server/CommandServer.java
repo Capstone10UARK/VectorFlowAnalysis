@@ -80,6 +80,11 @@ class CommandServer implements AutoCloseable{
                                 response.put("status", "running");
                                 response.put("progress", completed);
                                 break;
+
+                            case "stopProcess":
+                                //stop
+                                response.put("response", "commandExecuted");                            
+                                break;
                                 
                             case "end":
                                 run = false;
