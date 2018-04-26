@@ -54,6 +54,7 @@ class VFI_Map
           RGB_VyMap.put(image.getRGB(j,i), Vy);
 
         }
+
       }
     }
   }

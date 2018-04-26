@@ -16,7 +16,13 @@ Commands-
         explanation - sending this command will query the imageProcessor for information on its progress on the current job
         usage       - {"command":"progressReport"}
         returns     - progressReport response
-        
+
+    stopProcess
+        parameters  - none
+        explanation - stops processing of images
+        usage       - {"command":"stopProcess"}
+        returns     - commandExecuted response
+
     end
         parameters  - none
         explanation - this command will gracefully shutdown the server and close all sockets and streams

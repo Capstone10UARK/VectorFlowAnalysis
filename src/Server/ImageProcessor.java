@@ -9,7 +9,6 @@ import java.lang.*;
 
 class ImageProcessor extends Thread implements ThreadCompleteListener{
     //when executing on linux this path must use / instead of \ otherwise this causes a NullPointerException
-    private static final String IMAGE_DIRECTORY_PATH = "../../tests/images/clientTest";
     
     private String outputPath;
     private ProgressWrapper progress;
@@ -20,7 +19,7 @@ class ImageProcessor extends Thread implements ThreadCompleteListener{
 
     public ImageProcessor(String outputPathPassed, ProgressWrapper progressPassed) throws IOException {
         vfi = new VFI_Map();
-		outputPath = outputPathPassed;
+        IMAGE_DIRECTORY_PATH = outputPathPassed + "/Frames";
         progress = progressPassed;
     }
 
@@ -69,7 +68,7 @@ class ImageProcessor extends Thread implements ThreadCompleteListener{
 		long processingTimeMin = processingTimeS / 60;
 		processingTimeS = processingTimeS % 60;
 		System.out.println("Processing took " + processingTimeMin + " minutes and " + processingTimeS + " seconds.");
-	}
+  }
    
     public void threadComplete(Runnable runner) {
         completedImages = completedImages + 1;

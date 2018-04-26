@@ -19,11 +19,26 @@
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="Phonon::VideoPlayer" name="videoPlayer">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
         <property name="sizePolicy">
          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>745</width>
+          <height>482</height>
+         </size>
+        </property>
+        <property name="autoFillBackground">
+         <bool>false</bool>
+        </property>
+        <property name="styleSheet">
+         <string notr="true"/>
         </property>
        </widget>
       </item>
@@ -126,13 +141,7 @@
     <addaction name="separator"/>
     <addaction name="actionExit"/>
    </widget>
-   <widget class="QMenu" name="menuView">
-    <property name="title">
-     <string>Help</string>
-    </property>
-   </widget>
    <addaction name="menuFiel"/>
-   <addaction name="menuView"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <action name="actionLoad">
@@ -168,8 +177,6 @@
    <header location="global">phonon/seekslider.h</header>
   </customwidget>
  </customwidgets>
- <resources>
-  <include location="../../../../Downloads/pyplayer-master/resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>
