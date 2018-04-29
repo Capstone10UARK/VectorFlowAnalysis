@@ -19,7 +19,7 @@ class ImageProcessor extends Thread implements ThreadCompleteListener{
 
     public ImageProcessor(String outputPathPassed, ProgressWrapper progressPassed) throws IOException {
         vfi = new VFI_Map();
-        IMAGE_DIRECTORY_PATH = outputPathPassed + "/Frames";
+        outputPath = outputPathPassed + "/Frames";
         progress = progressPassed;
     }
 
@@ -57,7 +57,7 @@ class ImageProcessor extends Thread implements ThreadCompleteListener{
     }
 
 	private File[] getListOfImages() {
-		File directoryOfImages = new File(IMAGE_DIRECTORY_PATH);
+		File directoryOfImages = new File(outputPath);
 		File[] listOfImages = directoryOfImages.listFiles();
 		return listOfImages;
 	}
