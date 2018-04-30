@@ -15,9 +15,10 @@ from moviepy.video.io.ffmpeg_tools import ffmpeg_extract_subclip
 class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
     def __init__(self, parent=None):
         super(MyMainUi, self).__init__(parent)
-        QLabel.__init__(self, parent)
-		
+        QLabel.__init__(self, parent)		
         # Connect to server.
+        self.rubberBand = QRubberBand(QRubberBand.Rectangle, self)
+        self.origin = QPoint()
         self.clientSocket = ClientSocket()
         self.clientSocket.connect()
         self.progress = None
