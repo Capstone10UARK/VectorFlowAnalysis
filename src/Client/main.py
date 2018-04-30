@@ -256,13 +256,17 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
 
     # Menu exit button.
     def exit(self):
-        self.clientSocket.close()
-        app.exit()
+        if self.progress == None or self.progress.hasFinished:
+            self.clientSocket.close()
+            app.exit()
     
     # Top-right window exit button.
     def closeEvent(self, event):
-        self.clientSocket.close()
-        app.exit()
+        if self.progress == None or self.progress.hasFinished:
+            self.clientSocket.close()
+            app.exit()
+        else:
+            event.ignore()
 
 if __name__ == "__main__":
     app = QApplication([])

@@ -51,6 +51,7 @@ class ProgressBar(QtGui.QWidget):
         self.timer.start(500)
         
     def closeEvent(self, event):
+        # Currently unable to stop image processing, so ignore close events unless finished.
         if not self.hasFinished:
             event.ignore()
         '''if not self.hasFinished:

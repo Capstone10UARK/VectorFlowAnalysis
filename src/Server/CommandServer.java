@@ -1,7 +1,5 @@
 import java.net.ServerSocket;
 import java.net.Socket;
-//import java.io.BufferedReader;
-//import java.io.PrintWriter;
 import java.io.DataOutputStream;
 import java.io.DataInputStream;
 import java.io.InputStreamReader;
@@ -13,16 +11,12 @@ import org.json.JSONException;
 class CommandServer implements AutoCloseable{
     private ServerSocket serverSocket;
     private Socket clientSocket;
-    //private PrintWriter out;
-    //private BufferedReader in;
     private DataOutputStream out;
     private DataInputStream in;
     
     public CommandServer(int portNum) throws IOException{
         this.serverSocket = new ServerSocket(portNum);
         this.clientSocket = serverSocket.accept();
-        //this.out = new PrintWriter(clientSocket.getOutputStream(), true);
-        //this.in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
         this.out = new DataOutputStream(clientSocket.getOutputStream());
         this.in = new DataInputStream(clientSocket.getInputStream()); 
     }
@@ -41,10 +35,9 @@ class CommandServer implements AutoCloseable{
             ImageProcessor processor;
             ProgressWrapper progress = null;
             while(run){
-                //String input = in.readLine();
-				byte[] message = new byte[1024];
-				in.read(message);
-				String input = new String(message);
+			    byte[] message = new byte[1024];
+			    in.read(message);
+			    String input = new String(message);
                 if(input != null){
                     JSONObject obj = new JSONObject(input);
                     if(obj.has("command")){

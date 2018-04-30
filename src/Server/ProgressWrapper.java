@@ -7,7 +7,7 @@ class ProgressWrapper {
 
    	public void setProgress(float setTo) {
    		progress = setTo;
-   		System.out.println("progress set to " + setTo);
+   		//System.out.println("progress set to " + setTo);
    	}
 
    	public float getProgress() {

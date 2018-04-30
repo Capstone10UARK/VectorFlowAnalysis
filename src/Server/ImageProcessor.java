@@ -11,6 +11,7 @@ class ImageProcessor extends Thread implements ThreadCompleteListener{
     //when executing on linux this path must use / instead of \ otherwise this causes a NullPointerException
     
     private String outputPath;
+    private String imageDirectoryPath;
     private ProgressWrapper progress;
     private VFI_Map vfi;
     private int numberOfImages;
@@ -19,7 +20,8 @@ class ImageProcessor extends Thread implements ThreadCompleteListener{
 
     public ImageProcessor(String outputPathPassed, ProgressWrapper progressPassed) throws IOException {
         vfi = new VFI_Map();
-        outputPath = outputPathPassed + "/Frames";
+        imageDirectoryPath = outputPathPassed + "/Frames";
+        outputPath = outputPathPassed;
         progress = progressPassed;
     }
 
@@ -57,7 +59,7 @@ class ImageProcessor extends Thread implements ThreadCompleteListener{
     }
 
 	private File[] getListOfImages() {
-		File directoryOfImages = new File(outputPath);
+		File directoryOfImages = new File(imageDirectoryPath);
 		File[] listOfImages = directoryOfImages.listFiles();
 		return listOfImages;
 	}
