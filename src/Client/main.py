@@ -40,6 +40,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
         self.rubberBand.hide()
         self.origin = QPoint()
         self.hasResized = False
+        self.isAnalyzing = False
         self.installEventFilter(self)
         
         # Connect seek slider.
@@ -154,6 +155,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
     # Contact server for video analysis.
     def analyze(self):
         self.rubberBand.hide()
+        self.isAnalyzing = True
         directory = QFileDialog.getExistingDirectory(self, "Select Folder for Vector Output")
         
         if directory != '':
@@ -161,6 +163,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
             self.clientSocket.sendPath(directory)
             self.progress = ProgressBar(self.clientSocket)
             
+        self.isAnalyzing = False
         self.rubberBand.resize(0, 0)
         self.rubberBand.show()
 
@@ -230,7 +233,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
     def eventFilter(self, object, event):
         # If window is moved or no longer in focus, remove rubber band.
         if event.type() == QtCore.QEvent.Move or event.type() == QtCore.QEvent.WindowDeactivate:
-            if isinstance(object, QMainWindow):
+            if isinstance(object, QMainWindow) and not self.isAnalyzing:
                 self.rubberBand.resize(0, 0)
                 return True
                 
