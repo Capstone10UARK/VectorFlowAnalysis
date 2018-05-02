@@ -54,7 +54,7 @@ class ImageProcessor extends Thread implements ThreadCompleteListener{
             } catch (IOException e) {
                 System.out.println("Failed to load file index " + Integer.toString(frameIndex));
             }
-            
+  
         }
     }
 

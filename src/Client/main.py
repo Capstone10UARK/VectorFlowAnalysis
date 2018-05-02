@@ -181,13 +181,14 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
         os.makedirs(newDirectory, exist_ok=True)
         cap = cv2.VideoCapture(videoFile)
         count = 0
-        
+
         while count < cap.get(cv2.CAP_PROP_FRAME_COUNT):
             ret, frame = cap.read()
-            if (self.rubberBand.size().width() != 0):
-                x, y, width, height = self.getCropPositions(frame)
-                frame = frame[int(y):int(y) + int(height), int(x):int(x) + int(width)]
-            cv2.imwrite(newDirectory + "/frame%d.png" % count, frame)
+            if ret:
+                if self.rubberBand.size().width() != 0:
+                    x, y, width, height = self.getCropPositions(frame)
+                    frame = frame[int(y):int(y) + int(height), int(x):int(x) + int(width)]
+                cv2.imwrite(newDirectory + "/frame%d.png" % count, frame)
             count = count + 1
             
         cap.release()
