@@ -80,6 +80,7 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
 
     # Load user-specified video.
     def loadVideo(self):
+        self.rubberBand.resize(0, 0)
         file = QFileDialog.getOpenFileName(self, "Select Video to Load")
 
         if file != '':
