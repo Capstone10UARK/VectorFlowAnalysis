@@ -17,8 +17,6 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
         super(MyMainUi, self).__init__(parent)
         QLabel.__init__(self, parent)		
         # Connect to server.
-        self.rubberBand = QRubberBand(QRubberBand.Rectangle, self)
-        self.origin = QPoint()
         self.clientSocket = ClientSocket()
         self.clientSocket.connect()
         self.progress = None
@@ -60,8 +58,17 @@ class MyMainUi(QMainWindow, Ui_MainWindow, QLabel):
     # Detect change in video state.
     def stateChanged(self, newstate, oldstate):
         if self.mediaObject.state() == Phonon.ErrorState:
+            if self.rangeSlider.isVisible():
+                self.rangeSlider.hide()
+                self.analyzeButton.hide()
+                self.rubberBand.hide()
+                self.seekSlider.show()
+                self.play_pauseButton.show()
+                self.stopButton.show()
+            
             self.play_pauseButton.setEnabled(False)
             self.stopButton.setEnabled(False)
+            self.actionAnalyze_Area.setEnabled(False)
             messageBox = QMessageBox()
             messageBox.critical(None, 'ERROR', self.mediaObject.errorString() + '.')
         elif self.mediaObject.state() == Phonon.PlayingState:
